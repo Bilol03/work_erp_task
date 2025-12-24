@@ -6,3 +6,9 @@ export enum ProductTrackingType {
   VARIANT = 'VARIANT',
 }
 
+
+export enum DocumentStatus {
+  DRAFT = 'DRAFT',
+  CONFIRMED = 'CONFIRMED',
+  CANCELLED = 'CANCELLED',
+}

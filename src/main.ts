@@ -21,19 +21,6 @@ async function bootstrap() {
     .setTitle('Itech Quiz Up API')
     .setDescription('API documentation for the Itech Quiz Up platform')
     .setVersion('1.0')
-    .addTag('auth', 'Authentication endpoints')
-    .addTag('users', 'User management endpoints')
-    .addBearerAuth(
-      {
-        type: 'http',
-        scheme: 'bearer',
-        bearerFormat: 'JWT',
-        name: 'JWT',
-        description: 'Enter JWT token',
-        in: 'header',
-      },
-      'JWT-auth',
-    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
