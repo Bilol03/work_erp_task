@@ -1,24 +1,27 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Types } from "mongoose";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
+
+export type ExpirationStockDocument = ExpirationStock & Document;
 
 @Schema({ timestamps: true })
-export class Expiration extends Document {
-  @Prop({ type: Types.ObjectId, required: true, index: true })
-  product_id: Types.ObjectId;
+export class ExpirationStock {
+  @Prop({ required: true, index: true })
+  product_id: string;
 
-  @Prop({ type: Types.ObjectId, required: true, index: true })
-  warehouse_id: Types.ObjectId;
+  @Prop({ required: true, index: true })
+  warehouse_id: string;
 
   @Prop({ required: true })
   expiration_date: Date;
 
-  @Prop({ required: true, min: 0 })
+  @Prop({ required: true, default: 0 })
   quantity: number;
 }
 
-export const ExpirationSchema = SchemaFactory.createForClass(Expiration);
+export const ExpirationStockSchema =
+  SchemaFactory.createForClass(ExpirationStock);
 
-ExpirationSchema.index(
+ExpirationStockSchema.index(
   { product_id: 1, warehouse_id: 1, expiration_date: 1 },
   { unique: true },
 );

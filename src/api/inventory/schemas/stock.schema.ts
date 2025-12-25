@@ -1,19 +1,19 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import { Document } from 'mongoose';
+
+export type StockDocument = Stock & Document;
 
 @Schema({ timestamps: true })
-export class Stock extends Document {
-  @Prop({ type: Types.ObjectId, required: true, index: true })
-  product_id: Types.ObjectId;
+export class Stock {
+  @Prop({ required: true, index: true })
+  product_id: string;
 
-  @Prop({ type: Types.ObjectId, required: true, index: true })
-  warehouse_id: Types.ObjectId;
+  @Prop({ required: true, index: true })
+  warehouse_id: string;
 
-  @Prop({ required: true, min: 0 })
+  @Prop({ required: true, default: 0 })
   quantity: number;
 }
 
 export const StockSchema = SchemaFactory.createForClass(Stock);
-
-// 1 product + 1 warehouse = 1 stock row
 StockSchema.index({ product_id: 1, warehouse_id: 1 }, { unique: true });

@@ -6,6 +6,11 @@ export enum ProductTrackingType {
   VARIANT = 'VARIANT',
 }
 
+export interface TrackingInfo {
+  expiration_date?: Date;
+  lot_code?: string;
+  serial_numbers?: string[];
+}
 
 export enum DocumentStatus {
   DRAFT = 'DRAFT',

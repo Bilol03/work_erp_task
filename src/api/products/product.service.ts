@@ -25,7 +25,7 @@ export class ProductsService {
   async findOne(id: string) {
     return this.productModel.findById(id);
   }
-  async create(dto: CreateProductDto, userId: string) {
+  async create(dto: CreateProductDto) {
     if (dto.tracking_type === 'VARIANT') {
       if (
         !dto.variant_attributes ||
@@ -45,11 +45,10 @@ export class ProductsService {
         message: 'Only VARIANT parent can have variant_attributes',
       });
     }
-    console.log(userId);
     return this.productModel.create({
       ...dto,
       is_active: true,
-      created_by: userId,
+      created_by: "system",
     });
   }
 

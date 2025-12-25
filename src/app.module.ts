@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ProductsModule } from './api/products/product.module';
+import { PurchaseReceiptsModule } from './api/purchase-receipts/purchase-receipts.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ProductsModule } from './api/products/product.module';
       }),
     }),
     ProductsModule,
+    PurchaseReceiptsModule
   ],
 })
 export class AppModule {}
