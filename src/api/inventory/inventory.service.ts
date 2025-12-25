@@ -124,7 +124,7 @@ export class InventoryService {
     tracking?: TrackingInfo,
   ) {
     const stock = await this.stockModel.findOne({ product_id, warehouse_id });
-
+    console.log(stock)
     if (!stock || stock.quantity < quantity) {
       throw new BadRequestException('INSUFFICIENT_STOCK');
     }
@@ -279,9 +279,9 @@ export class InventoryService {
     await lot.save();
   }
 
-  /*
+  /* ========================================
         EXPIRATION
-    */
+  ======================================== */
 
   private async increaseExpiration(
     product_id: string,

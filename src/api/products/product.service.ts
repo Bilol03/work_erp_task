@@ -23,7 +23,9 @@ export class ProductsService {
   }
 
   async findOne(id: string) {
-    return this.productModel.findById(id);
+    const product = await this.productModel.findById(id);
+  
+    return product
   }
   async create(dto: CreateProductDto) {
     if (dto.tracking_type === 'VARIANT') {
