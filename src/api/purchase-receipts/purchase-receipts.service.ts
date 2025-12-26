@@ -68,6 +68,9 @@ export class PurchaseReceiptsService {
         message: 'Only CONFIRMED receipt can be cancelled',
       });
     }
+    if (!reason) {
+      throw new BadRequestException('Cancellation reason is required');
+    }
 
     for (const line of receipt.lines) {
       await this.inventoryService.decreaseStock(

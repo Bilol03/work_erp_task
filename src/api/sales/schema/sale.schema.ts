@@ -22,6 +22,11 @@ export class Sale extends Document {
   @Prop({ type: [SaleLine], default: [] })
   lines: SaleLine[];
 
+  @Prop()
+  confirmed_by: string;
+  
+  @Prop()
+  cancelled_by: string
   // audit
   @Prop()
   confirmed_at?: Date;

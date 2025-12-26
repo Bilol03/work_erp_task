@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
-import { ProductTrackingType } from 'src/constants';
+import { ProductTrackingType } from 'src/constants/index';
 
 
 @Schema({ timestamps: true })

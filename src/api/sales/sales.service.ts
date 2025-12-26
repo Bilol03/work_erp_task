@@ -1,9 +1,13 @@
-import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
-import { Sale } from "./schema/sale.schema";
-import { Model } from "mongoose";
-import { InventoryService } from "../inventory/inventory.service";
-import { CreateSaleDto } from "./dto/create-sale.dto";
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { InventoryService } from '../inventory/inventory.service';
+import { CreateSaleDto } from './dto/create-sale.dto';
+import { Sale } from './schema/sale.schema';
 
 @Injectable()
 export class SalesService {
@@ -26,7 +30,6 @@ export class SalesService {
     }
 
     for (const line of sale.lines) {
-        console.log(line.quantity)
       await this.inventoryService.checkAvailability(
         line.product_id,
         sale.warehouse_id,
@@ -53,6 +56,7 @@ export class SalesService {
     }
 
     sale.status = 'CONFIRMED';
+    sale.confirmed_by = 'system';
     sale.confirmed_at = new Date();
     return sale.save();
   }
@@ -64,6 +68,8 @@ export class SalesService {
     if (sale.status !== 'CONFIRMED') {
       throw new BadRequestException('ONLY_CONFIRMED_CAN_CANCEL');
     }
+
+    if (!reason) throw new BadRequestException('Reason is required');
 
     for (const line of sale.lines) {
       await this.inventoryService.increaseStock(
@@ -80,6 +86,7 @@ export class SalesService {
 
     sale.status = 'CANCELLED';
     sale.cancelled_at = new Date();
+    sale.cancelled_by = 'system';
     sale.cancellation_reason = reason;
 
     return sale.save();
